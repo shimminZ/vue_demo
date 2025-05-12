@@ -21,7 +21,7 @@ const tabbarData = [
     text: "消息",
     image: "tabbar/tab_message.png",
     imageActive: "tabbar/tab_message.png",
-    path: "/message"
+    path: "/profile"
   }
 ]
 

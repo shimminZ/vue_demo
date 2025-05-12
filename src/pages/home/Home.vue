@@ -1,22 +1,46 @@
 <template>
   <div>
-    <h2>home</h2>
-    <ul>
-      <li>列表没有默认圆点</li>
-    </ul>
-    <a class="link" href="">测试</a>
-
-    <van-button type="primary">主要按钮</van-button>
-    <van-button type="success">成功按钮</van-button>
-    <van-button type="default">默认按钮</van-button>
-    <van-button type="warning">警告按钮</van-button>
-    <van-button type="danger">危险按钮</van-button>
-
+    <div class="search">
+      <form action="/">
+      <van-search
+        v-model="value"
+        show-action
+        shape="round"
+        placeholder="请输入搜索关键词"
+        @search="onSearch"
+        @cancel="onCancel"
+      />
+    </form>
+    </div>
+    <div>
+      <button @click="loaction">location</button>
+    </div>
   </div>
 </template>
 
+<script setup>
+  
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import store from '@/store';
+
+  const value = ref('')
+  const userStore = store();
+  const router = useRouter();
+  const onCancel = () => {
+    console.log('取消');
+  };
+  const onSearch = (value) => {
+    console.log('搜索', value);
+  };
+
+  const loaction = () => {
+    router.push('/location')
+    userStore.setTabBarStatus(false)
+  }
+
+</script>
+
 <style scoped>
-.link {
-  color: red;
-}
+
 </style>

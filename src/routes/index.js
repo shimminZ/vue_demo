@@ -16,8 +16,16 @@ const routes =  createRouter({
       component: () => import('../pages/favor/Favor.vue')
     },
     { 
+      path: "/order", 
+      component: () => import('../pages/order/Order.vue')
+    },
+    { 
       path: "/profile", 
       component: () => import('../pages/profile/Profile.vue')
+    },
+    { 
+      path: "/location", 
+      component: () => import('../pages/home/location/Location.vue')
     },
   ]
 })
