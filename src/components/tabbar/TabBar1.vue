@@ -68,7 +68,6 @@ const clickBarItem = (path,index) => {
   display: flex;
   justify-content: space-around;
   background-color: #eee;
-  padding: 10px 0;
   border-top: 1px solid #ccc;
   z-index: 100; 
 }

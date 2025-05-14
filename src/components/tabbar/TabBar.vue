@@ -5,7 +5,6 @@
         <van-tabbar-item v-for="item in tabbarData" :to="item.path" :key="item.path">
           <span>{{ item.text }}</span>
           <template #icon="props">
-            <!-- <img :src="props.active ? tabActiveHome : tabHome" /> -->
             <img  :src="getAssetURL(item.imageActive)" alt="" v-if="props.active">
             <img  :src="getAssetURL(item.image)" alt="" v-else>
           </template>

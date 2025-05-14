@@ -16,7 +16,7 @@ const userStore = store();
 <style lang="less" scoped>
 
 .wapper {
-  padding-bottom: 60px; // 留出底部导航栏的高度
+  // padding-bottom: 60px; // 留出底部导航栏的高度
 }
 
 </style>
