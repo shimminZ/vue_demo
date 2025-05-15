@@ -17,7 +17,7 @@
         <van-tabs v-model:active="active" color="orange">
           <van-tab v-for = "(value,key,index) in userCityStore.allCity" :title="value.title ">
             <div class="flow-city">
-              {{value}}
+            <CityGroup :cityGroup="value"></CityGroup>
             </div>
           </van-tab>
         </van-tabs>
@@ -30,12 +30,12 @@
 
 <script setup>
 import { useRouter, onBeforeRouteLeave } from 'vue-router'
-import store from '@/store'
 import { getCityAll } from '@/service/modules/city.js'
 import { ref } from 'vue'
+import store from '@/store'
 // import useCityStore from '@store/modules/city.js'
 import useCityStore from '../../../store/modules/city'
-
+import CityGroup from './cpns/CityGroup.vue'
 
 const router = useRouter()
 const tabBarStore = store()
@@ -49,7 +49,6 @@ function onCancel() {
 userCityStore.fetchAllCityData().then(()=>{
   console.log('网络请求完毕',userCityStore.allCity)
 })
-// console.log("useCityStore.allCity", useCityStore.allCity)
 
 getCityAll().then((res) => {
   cityGroupData.value = res.data
