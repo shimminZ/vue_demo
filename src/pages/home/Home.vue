@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="home">
     <NavBar>
       <span>首页</span>
     </NavBar>
     <div>
+      <img class="banner" :src="banner" alt="">
       <button @click="loaction">location</button>
     </div>
 
@@ -19,6 +20,7 @@
   import { useRouter } from 'vue-router';
   import store from '@/store';
   import NavBar from '@/components/nav/NavBar.vue';
+  import banner from '@/assets/img/home/banner.webp' // 注意 @ 代表 src 目录
 
   const value = ref('')
   const userStore = store();
@@ -27,20 +29,34 @@
   const loaction = () => {
     router.push('/location')
     userStore.setTabBarStatus(false)
+
+    const date = new Date()
+    console.log( "date = ",date)
   }
 
 </script>
 
-<style scoped>
-.nav {
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  background-color: #f5f5f5;
-  font-size: 20px;
+<style lang="less" scoped>
+
+.home {
+
+  .nav {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #f5f5f5;
+    font-size: 20px;
+  }
+
+  .banner {
+    width: 100%;
+  }
+
+  .bottom {
+    padding-bottom: 50px;
+  }
+
 }
-.bottom {
-  padding-bottom: 50px;
-}
+
 
 </style>

@@ -12,25 +12,18 @@
         @cancel="onCancel"
       />
       </form>
-    </div>
 
-    <div class="swith_city" >
-        <van-tabs v-model:active="active" color="orange" @click-tab="onClickTab">
-          <van-tab v-for = "(value,key) in allCity" :title="value.title"
-          :name="key"
-          >
+      <div class="swith_city">
+        <van-tabs v-model:active="active" color="orange">
+          <van-tab v-for = "(value,key,index) in userCityStore.allCity" :title="value.title ">
+            <div class="flow-city">
+            <CityGroup :cityGroup="value"></CityGroup>
+            </div>
           </van-tab>
         </van-tabs>
       </div>
-    
-    <div class="flow-city">
-      <div v-for="(value,key,index) in allCity" :key="index">
-        <div v-show="active===key">
-          <HotCity :hot-citys="value"></HotCity>
-          <CityGroup :cityGroup="value"></CityGroup>
-        </div>
-      </div>
     </div>
+    
     
   </div>
 </template>
@@ -40,47 +33,34 @@ import { useRouter, onBeforeRouteLeave } from 'vue-router'
 import { getCityAll } from '@/service/modules/city.js'
 import { ref } from 'vue'
 import store from '@/store'
+// import useCityStore from '@store/modules/city.js'
 import useCityStore from '../../../store/modules/city'
 import CityGroup from './cpns/CityGroup.vue'
-import HotCity from './cpns/HotCity.vue'
-import { storeToRefs } from 'pinia'
-
-const active = ref()
 
 const router = useRouter()
+const tabBarStore = store()
+const cityGroupData = ref()
+const userCityStore = useCityStore()
+
 function onCancel() {
   router.back()
 }
 
-const tabBarStore = store()
+userCityStore.fetchAllCityData().then(()=>{
+  console.log('网络请求完毕',userCityStore.allCity)
+})
+
+getCityAll().then((res) => {
+  cityGroupData.value = res.data
+})
+
 // 或者监听返回时自动恢复 tabBar 状态
 onBeforeRouteLeave(() => {
   tabBarStore.setTabBarStatus(true)
 })
 
-// const cityGroupData = ref()
-// getCityAll().then((res) => {
-//   cityGroupData.value = res.data
-// })
-
-const userCityStore = useCityStore()
-userCityStore.fetchAllCityData()
-// userCityStore.fetchAllCityData().then(()=>{
-//   console.log('网络请求完毕',userCityStore.allCity)
-// })
-const { allCity } = storeToRefs(userCityStore)
-
-const onClickTab = (value)=> {
-  const cityGroup = userCityStore.allCity[value.name]
-  console.log(cityGroup)
-}
-
-
-const onSearch = ()=> {
-
-}
-
 </script>
+
 
 <style lang="less"  scoped> 
 
@@ -96,7 +76,7 @@ const onSearch = ()=> {
   }
 
   .flow-city {
-    height: calc(100vh - 98px);
+    height: calc(100vh - 98px);   
     overflow-y: auto;
   }
 
